@@ -8,8 +8,8 @@
     <title>Windows.js</title>
 </head>
 <body>
-<!-- 
-    <div class="Window-Main">
+
+    <!-- <div class="Window-Main">
         <nav class="Window-Titlebar">
             <span class="Window-Title">Title</span>
             <div class="Window-Button-Wrapper">
@@ -19,8 +19,11 @@
             </div>
         </nav>
         <div class="Window-Body"></div>
+        <div class="Window-Slider-Left Window-Dragger"></div>
+        <div class="Window-Slider-Right Window-Dragger"></div>
+        <div class="Window-Slider-Up Window-Dragger"></div>
+        <div class="Window-Slider-Down Window-Dragger"></div>
     </div> -->
-    
 </body>
 <script src="Windows.js"></script>
 <script>
@@ -32,7 +35,7 @@
         content: `<div class="shadowbox">
                     <p>Here's a very interesting note displayed in a lovely shadowed box.</p>
                 </div>`
-    })
+    });
     let win2 = new Win({
         x: "0%",         //any valid css size value
         y: "0%",        //any valid css size value
@@ -41,6 +44,8 @@
         content: `<div class="shadowbox">
                     <p>lovely shadowed box.</p>
                 </div>`
-    })
+    });
+    win.addShow();
+    win2.addShow();
 </script>
 </html>

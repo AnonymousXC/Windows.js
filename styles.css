@@ -3,12 +3,32 @@
     padding: 0;
 }
 
+.shadowbox {
+    position: absolute;
+    width: calc(100%  13px);
+    border: 1px solid #333;
+    box-shadow: 8px 8px 5px #444;
+    padding: 8px 12px;
+    background-color: #FFf;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    user-select: none !important;
+}
+
+body {
+    width: 90vw !important; 
+    overflow: hidden;
+    height: 100vh;
+}
+/* Tester */
+
 /* 
 
 .Window-Main {
     position: absolute;
-    width: 600px;
-    height: 400px;
+    width: 80%;
+    height: 80%;
     background-color: rgb(44, 44, 46);
     border-radius: 10px;
 }
@@ -65,17 +85,39 @@
 
 .Window-Buttons:hover {
     color: black;
-} */
+} 
 
-.shadowbox {
+
+
+.Window-Dragger {
+    top: 0;
     position: absolute;
-    width: calc(100%  13px);
-    border: 1px solid #333;
-    box-shadow: 8px 8px 5px #444;
-    padding: 8px 12px;
-    background-color: #FFf;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+    width: 3px;
+    height: 100%;
+    background-color: #24c138;
+}
+
+.Window-Slider-Left {
+    left: 0;
+}
   
+.Window-Slider-Right {
+    right: 0;
+}
+
+.Window-Slider-Up {
+    top: 0;
+    width: 100%;
+    height: 3px;
+}
+
+
+.Window-Slider-Down {
+    top: 100%;
+    width: 100%;
+    height: 3px;
+}
+
+.Window-Dragger:hover {
+    
+} */
