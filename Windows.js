@@ -121,19 +121,26 @@ const Win = function(options) {
                     }
 
                     .Window-Body::-webkit-scrollbar {
-                        width: 15px;
-                        background:lightgray;
+                        width: 6px;
+                        background: transparent;
+                    }
+
+                    .Window-Body {
+                        scrollbar-color: rgb(210,210,210, 0.5) rgba(46,54,69,0) !important;
+                        scrollbar-width: thin !important;
                     }
                     
                     .Window-Body::-webkit-scrollbar-track {
-                        -webkit-box-shadow: inset 0 0 6px rgba(0,0,255,1); 
                         border-radius: 15px;
                     }
                     
                     .Window-Body::-webkit-scrollbar-thumb {
-                        border-radius: 15px;
-                        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-                        background:cyan;
+                        border-radius: 15px; 
+                        background: rgba(255,255,255,0.5);
+                    }
+
+                    .Window-Body::-webkit-scrollbar-thumb:hover {
+                        background: rgba(255,255,255,0.6);
                     }
 
                     .Window-Main:focus {
