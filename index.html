@@ -10,34 +10,31 @@
 <body>
 
 
-
-
 </body>
 
 <script src="Windows.js"></script>
 <script>
     let win = new Win({
-        x: "40%",         //any valid css size value
-        y: "50%",        //any valid css size value
-        width: "800px", //any valid css size value
-        height: "200px",//any valid css size value
-        content: `<div class="shadowbox">
+        x: "40%",
+        y: "50%",
+        width: "800px",
+        height: "200px",
+        content: `<div style="height: 800px; width: 400px; background-color:yellow;">
                     <p>Here's a very interesting note displayed in a lovely shadowed box.</p>
                 </div>`,
         title: "Hello World"
     });
     let win2 = new Win({
-        x: "0%",         //any valid css size value
-        y: "0%",        //any valid css size value
-        id: "asdasd",   // ID 
-        width: "400px", //any valid css size value
-        height: "100px",
-        content: `<div class="shadowbox">
-                    <p>lovely shadowed box.</p>
-                </div>`
+        x: "0%",
+        y: "0%",
+        id: "XYZ",
+        width: "600px",
+        height: "400px",
+        title: "Developer's Portfolio",
+        content: `<iframe src="https://anonymousxc.github.io/ItsMeOnly/" frameborder="0" width="100%" height="99%"></iframe>`
     });
-    win.add();
-    win2.add();
+    win.addShow();
+    win2.addShow();
 </script>
 
 </html>

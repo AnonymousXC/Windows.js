@@ -10,7 +10,7 @@ const Win = function(options) {
 
         newWindow : async () => {
             let windowHtml = `
-            <div class="Window-Main" id="Window-Main-${this.id}" data-is-maximized="0">
+            <div class="Window-Main" id="Window-Main-${this.id}" data-is-maximized="0" tabindex="0">
                 <nav class="Window-Titlebar" id="Window-Titlebar-${this.id}">
                     <span class="Window-Title" id="Window-Title-${this.id}">${this.options.title ? this.options.title : "Title"}</span>
                     <div class="Window-Button-Wrapper">
@@ -35,21 +35,25 @@ const Win = function(options) {
         functions.closeWindow();
         functions.maximizeWindow();
         functions.minimizeWindow();
+        // functions.showOnTopOnClick();
         },
 
         styles : async () => {
             let css = `
-                <style>
+                <style id="WindowJS-StyleSheet">
                     .Window-Main {
                         display: none;
+                        z-index: 5;
                         position: absolute;
                         width: 600px;
                         height: 400px;
                         background-color: rgb(44, 44, 46);
                         border-radius: 10px;
                         resize: both;
-                        overflow: auto;
+                        overflow: hidden;
                         ${transition};
+                        min-width: 400px;
+                        min-height: 400px;
                     }
 
                     .Window-Titlebar {
@@ -69,7 +73,10 @@ const Win = function(options) {
                         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                         color: #fff;
                         position: relative;
-                        left: 45%;
+                        width: 100%;
+                        text-align: center;
+                        left: 0;
+                        transform: translateX(25px);
                         user-select: none !important;
                     }
 
@@ -107,13 +114,37 @@ const Win = function(options) {
                         color: black;
                     }
 
-                    .Window-Main::after {
-                        content: '';
-                        position: absolute
+                    .Window-Body {
+                        height: 100%;
+                        width: 100%;
+                        overflow: auto;
                     }
+
+                    .Window-Body::-webkit-scrollbar {
+                        width: 15px;
+                        background:lightgray;
+                    }
+                    
+                    .Window-Body::-webkit-scrollbar-track {
+                        -webkit-box-shadow: inset 0 0 6px rgba(0,0,255,1); 
+                        border-radius: 15px;
+                    }
+                    
+                    .Window-Body::-webkit-scrollbar-thumb {
+                        border-radius: 15px;
+                        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+                        background:cyan;
+                    }
+
+                    .Window-Main:focus {
+                        z-index: 10;
+                    }
+
                 </style>
             `
-            await document.head.insertAdjacentHTML("beforeend", css)
+            let styleSheet = document.getElementById("WindowJS-StyleSheet")
+            if(!styleSheet)
+                await document.head.insertAdjacentHTML("beforeend", css)
         },
 
         closeWindow: async () => {
@@ -181,7 +212,7 @@ const Win = function(options) {
                 let posAddY = parseInt(event.pageY) - winRect.y;
 
                 win.style.position = 'absolute';
-                win.style.zIndex = 1000;
+                // win.style.zIndex = 1000;
               
                 function moveAt(pageX, pageY) {
                   win.style.left = functions.clampValue(parseInt(pageX) - posAddX , 0, bodyRect.width) + "px";
