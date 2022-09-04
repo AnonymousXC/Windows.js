@@ -3,6 +3,7 @@ const Win = function(options) {
     this.options = options;
     this.id = this.options.id ? this.options.id : "".concat((Math.random() + 1).toString(36).substring(7))
     this.windowPos = {};
+    this.isMouseOnTitle = false;
     let transition = this.options.transition ? `transition: ${this.options.transition}` : `transition : all 200ms`;
 
     const functions = {
@@ -11,7 +12,7 @@ const Win = function(options) {
             let windowHtml = `
             <div class="Window-Main" id="Window-Main-${this.id}" data-is-maximized="0">
                 <nav class="Window-Titlebar" id="Window-Titlebar-${this.id}">
-                    <span class="Window-Title" id="Window-Title-${this.id}">Title</span>
+                    <span class="Window-Title" id="Window-Title-${this.id}">${this.options.title ? this.options.title : "Title"}</span>
                     <div class="Window-Button-Wrapper">
                         <button id="Window-Min-${this.id}" class="Window-Buttons" onmousedown="">&#128469;&#xFE0E;</button>
                         <button id="Window-Max-${this.id}" class="Window-Buttons">&#128470;&#xFE0E;</button>
@@ -46,6 +47,8 @@ const Win = function(options) {
                         height: 400px;
                         background-color: rgb(44, 44, 46);
                         border-radius: 10px;
+                        resize: both;
+                        overflow: auto;
                         ${transition};
                     }
 
@@ -115,7 +118,6 @@ const Win = function(options) {
 
         closeWindow: async () => {
             let closeBtn = await document.getElementById("Window-Close-" +this.id)
-            console.log(closeBtn);
             await closeBtn.addEventListener("click", (e) => {
                 e.target.parentElement.parentElement.parentElement.style.display = "none"
             });
@@ -234,12 +236,12 @@ const Win = function(options) {
         unminimize : () => {
             let win = document.getElementById("Window-Main-" + this.id);
             win.style.scale = "1";
-        }
-
+        },
     }
     
     this.add = functions.newWindow;
     this.show = functions.show;
     this.unminimize = functions.unminimize;
+    this.getID = "Window-Main-" + this.id
     this.addShow = () => {functions.newWindow(); functions.show();}
 }

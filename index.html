@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,22 +9,11 @@
 </head>
 <body>
 
-    <!-- <div class="Window-Main">
-        <nav class="Window-Titlebar">
-            <span class="Window-Title">Title</span>
-            <div class="Window-Button-Wrapper">
-                <button id="Window-Min" class="Window-Buttons">&#128469;&#xFE0E;</button>
-                <button id="Window-Max" class="Window-Buttons">&#128470;&#xFE0E;</button>
-                <button id="Window-Close" class="Window-Buttons">&#128473;&#xFE0E;</button>
-            </div>
-        </nav>
-        <div class="Window-Body"></div>
-        <div class="Window-Slider-Left Window-Dragger"></div>
-        <div class="Window-Slider-Right Window-Dragger"></div>
-        <div class="Window-Slider-Up Window-Dragger"></div>
-        <div class="Window-Slider-Down Window-Dragger"></div>
-    </div> -->
+
+
+
 </body>
+
 <script src="Windows.js"></script>
 <script>
     let win = new Win({
@@ -34,18 +23,21 @@
         height: "200px",//any valid css size value
         content: `<div class="shadowbox">
                     <p>Here's a very interesting note displayed in a lovely shadowed box.</p>
-                </div>`
+                </div>`,
+        title: "Hello World"
     });
     let win2 = new Win({
         x: "0%",         //any valid css size value
         y: "0%",        //any valid css size value
+        id: "asdasd",   // ID 
         width: "400px", //any valid css size value
         height: "100px",
         content: `<div class="shadowbox">
                     <p>lovely shadowed box.</p>
                 </div>`
     });
-    win.addShow();
-    win2.addShow();
+    win.add();
+    win2.add();
 </script>
+
 </html>
