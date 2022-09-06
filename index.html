@@ -1,22 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Windows.js</title>
+
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/js/uikit-icons.min.js"></script>
+
+
 </head>
-<body>
-
-
+<body class="uk-light uk-background-secondary">
+    <div class="uk-container uk-container-small uk-section">
+        <div class="uk-section uk-margin uk-height-large uk-text-center" style="border: none;overflow: hidden;height: auto;">
+            <h1 class="uk-heading-small">You can make custom Windows using ContextMenu.js.</h1>
+                What something cool like Window like MacOS in your website or npm app.
+                Windows.js is fully customizable addon to do so, you can use any css framework to customize it. You can make fast and Multiple Windows using this. Windows.js is best choice for your node app and your website. I am continuously working to improve this.<br>
+                Thanks!<br> <br>
+                <img src="http://ForTheBadge.com/images/badges/built-with-love.svg" alt="ForTheBadge built-with-love">
+                <img src="http://ForTheBadge.com/images/badges/built-with-swag.svg" alt="ForTheBadge built-with-swag"> <br> <br>
+        </div>
+        <button
+        ondblclick="win2.show()">
+            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/source/945b0225337909.563440870421b.png" alt="icon" width="60" >
+        </button>
+    </div>
 </body>
-
-<script src="Windows.js"></script>
+<script src="Windows copy.js"></script>
 <script>
     let win = new Win({
-        x: "0%",
-        y: "50%",
+        x: 100,
+        y: 0,
         width: "800px",
         height: "200px",
         content: `<div style="height: 800px; width: 400px; background-color:yellow;">
@@ -25,8 +45,8 @@
         title: "Hello World"
     });
     let win2 = new Win({
-        x: "0%",
-        y: "0%",
+        x: 0,
+        y: 0,
         id: "XYZ",
         width: "600px",
         height: "400px",
@@ -34,7 +54,6 @@
         content: `<iframe src="https://anonymousxc.github.io/ItsMeOnly/" frameborder="0" width="100%" height="98%"></iframe>`
     });
     win.addShow();
-    win2.addShow();
+    // win2.add();
 </script>
-
 </html>

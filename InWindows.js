@@ -4,6 +4,8 @@ const Win = function(options) {
     this.id = this.options.id ? this.options.id : "".concat((Math.random() + 1).toString(36).substring(7))
     this.windowPos = {};
     this.isMouseOnTitle = false;
+    const position = { x: this.options.x ? this.options.x : 0 , y: this.options.y ? this.options.y : 0 }
+    let isMaxWin = false;
     let transition = this.options.transition ? `transition: ${this.options.transition}` : `transition : all 200ms`;
 
     const functions = {
@@ -30,12 +32,13 @@ const Win = function(options) {
         currWin.style.width = this.options.width ? this.options.width : "600px";
         currWin.style.height = this.options.height ? this.options.height : "400px";
 
+        functions.loadInteractJS("https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js")
         functions.styles();
-        functions.dragWindow();
         functions.closeWindow();
         functions.maximizeWindow();
         functions.minimizeWindow();
-        // functions.showOnTopOnClick();
+        functions.dragWindow();
+        functions.resizeWindow();
         },
 
         styles : async () => {
@@ -45,15 +48,16 @@ const Win = function(options) {
                         display: none;
                         z-index: 5;
                         position: absolute;
-                        width: 600px;
-                        height: 400px;
+                        width: ${this.options.width};
+                        height: ${this.options.height};
                         background-color: rgb(44, 44, 46);
                         border-radius: 10px;
-                        resize: both;
                         overflow: hidden;
                         ${transition};
+                        transform: translate(${position.x}px, ${position.y}px);
                         min-width: 400px;
                         min-height: 400px;
+                        box-sizing: border-box;
                     }
 
                     .Window-Titlebar {
@@ -67,6 +71,7 @@ const Win = function(options) {
                         border-bottom: solid 1px rgb(155, 160, 170);
                         justify-content: space-between;
                         align-items: center;
+                        cursor: initial !important;
                     }
 
                     .Window-Title {
@@ -157,7 +162,7 @@ const Win = function(options) {
                 </style>
             `
             let styleSheet = document.getElementById("WindowJS-StyleSheet")
-            if(!styleSheet)
+            if(!styleSheet) 
                 await document.head.insertAdjacentHTML("beforeend", css)
         },
 
@@ -188,20 +193,20 @@ const Win = function(options) {
                     this.windowPos.y = mainDiv.style.top;
                     this.windowPos.width = mainDiv.style.width;
                     this.windowPos.height = mainDiv.style.height;
-                    mainDiv.style.left = "0";
-                    mainDiv.style.top = "0";
+                    mainDiv.style.transform = "translate(0px, 0px)"
                     mainDiv.style.width = "100%";
                     mainDiv.style.height = "100%";
                     maxBtn.innerHTML = "&#128471;&#xFE0E;"
                     state = "1";
+                    isMaxWin = true;
                 }
                 else {
-                    mainDiv.style.left = this.windowPos.x;
-                    mainDiv.style.top = this.windowPos.y;
+                    mainDiv.style.transform = `translate(${this.windowPos.x}px, ${this.windowPos.y}px)`
                     mainDiv.style.width = this.windowPos.width;
                     mainDiv.style.height = this.windowPos.height;
                     maxBtn.innerHTML = "&#128470;&#xFE0E;"
                     state = "0";
+                    isMaxWin = false
                 }
                 mainDiv.setAttribute("data-is-maximized", state);
         },
@@ -214,57 +219,6 @@ const Win = function(options) {
                     maxBtn.parentElement.parentElement.parentElement.style.display = "none"
                 }, 1000)
             })
-        },
-
-        dragWindow : async () => {
-            let win = document.getElementById("Window-Main-" + this.id);
-            let nav = document.getElementById("Window-Titlebar-" + this.id)
-            let bodyRect = document.body.getBoundingClientRect();
-            nav.ondragstart = (e) => { return false}
-            nav.addEventListener("mousedown", draggingWin = function (event) {
-
-                let dragging = false;
-                let winRect = win.getBoundingClientRect();
-                let posAddX = parseInt(event.pageX) - winRect.x;
-                let posAddY = parseInt(event.pageY) - winRect.y;
-
-                win.style.position = 'absolute';
-                // win.style.zIndex = 1000;
-              
-                function moveAt(pageX, pageY) {
-                  win.style.left = functions.clampValue(parseInt(pageX) - posAddX , 0, bodyRect.width) + "px";
-                  win.style.top = functions.clampValue(parseInt(pageY) - posAddY, 0, bodyRect.height) + "px";
-                }
-
-                function onMouseMove(event) {
-                  win.style.transition = "none";
-                  dragging = true;
-                  if(dragging === true && event.clientY > 50 && parseInt(win.getAttribute("data-is-maximized")) === 1 ) {
-                    functions.toggleMaximize(parseInt(event.pageX) + posAddX, parseInt(event.pageY) + posAddY);
-                    isToggledMax = true
-                  }
-                  moveAt(event.pageX, event.pageY);
-                }
-              
-                document.addEventListener('mousemove', onMouseMove);
-              
-                nav.onmouseup = function(event) {
-                  win.style.transition = transition.replace(/transition : /, "");
-                  document.removeEventListener('mousemove', onMouseMove);
-                  nav.onmouseup = null;
-                  if(dragging === true && event.clientY < 50) {
-                    functions.toggleMaximize();
-                  }
-                };
-
-                document.body.onmouseleave =  (e) => {
-                    win.style.transition = transition.replace(/transition : /, "");
-                    document.removeEventListener('mousemove', onMouseMove);
-                    document.body.onmouseleave = null;
-                  }
-                
-              
-              });
         },
 
         clampValue : (val, min, max) => {
@@ -287,6 +241,84 @@ const Win = function(options) {
             win.style.display = "block"
             win.style.scale = "1";
         },
+
+        dragWindow : () => {
+
+                interact(`#Window-Titlebar-${this.id}`).draggable({
+                inertia: {
+                    resistance: 10,
+                    minSpeed: 100,
+                    endSpeed: 100
+                  },
+                listeners: {
+                    start(event) {
+                        event.target.parentElement.style.transition = "none";
+                        // this.windowPos.x = event.x0
+                        // this.windowPos.y = event.y0
+                        },
+                    move (event) {
+                        position.x += event.dx
+                        position.y += event.dy
+                        if(event.client.y >= 50 && isMaxWin === true)
+                            functions.toggleMaximize()
+                        event.target.parentElement.style.transform =`translate(${position.x}px, ${position.y}px)`
+                        },
+                    end(event) {
+                        event.target.parentElement.style.transition = transition.replace("transition : ", "");
+                        if(event.clientY < 50 && isMaxWin === false)
+                            functions.toggleMaximize()
+                        },
+                    }
+                })
+
+        },
+
+        resizeWindow : () => {
+
+            interact(`#Window-Main-${this.id}`).resizable({
+                edges: { top: false, left: false, bottom: true, right: true },
+                listeners: {
+                    move: function (event) {
+                        event.target.style.transition = "none"
+                        let { x, y } = event.target.dataset
+
+                        x = (parseFloat(x) || 0) + event.deltaRect.left
+                        y = (parseFloat(y) || 0) + event.deltaRect.top
+                        
+                        Object.assign(event.target.style, {
+                        width: `${event.rect.width}px`,
+                        height: `${event.rect.height}px`,
+                        // transform: `translate(${x}px, ${y}px)`
+                        })
+
+                        Object.assign(event.target.dataset, { x, y })
+                        },
+                    end : (event) => {
+                        event.target.style.transition = transition.replace("transition :", "")
+                    }
+                }
+
+            })
+
+        },
+
+        loadInteractJS : ( url ) => {
+            var ajax = new XMLHttpRequest();
+            ajax.open( 'GET', url, false ); // <-- the 'false' makes it synchronous
+            ajax.onreadystatechange = function () {
+                var script = ajax.response || ajax.responseText;
+                if (ajax.readyState === 4) {
+                    switch( ajax.status) {
+                        case 200:
+                            eval.apply( window, [script] );
+                            break;
+                        default:
+                    }
+                }
+            };
+            ajax.send(null);
+        }
+    
     }
     
     this.add = functions.newWindow;
