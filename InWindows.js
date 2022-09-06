@@ -3,8 +3,10 @@ const Win = function(options) {
     this.options = options;
     this.id = this.options.id ? this.options.id : "".concat((Math.random() + 1).toString(36).substring(7))
     this.windowPos = {};
+    this.options.x = this.options.x ? this.options.x : 0
+    this.options.y = this.options.y ? this.options.y : 0
+    console.log(this.options);
     this.isMouseOnTitle = false;
-    const position = { x: this.options.x ? this.options.x : 0 , y: this.options.y ? this.options.y : 0 }
     let isMaxWin = false;
     let transition = this.options.transition ? `transition: ${this.options.transition}` : `transition : all 200ms`;
 
@@ -12,7 +14,7 @@ const Win = function(options) {
 
         newWindow : async () => {
             let windowHtml = `
-            <div class="Window-Main" id="Window-Main-${this.id}" data-is-maximized="0" tabindex="0">
+            <div class="Window-Main" id="Window-Main-${this.id}" data-is-maximized="0" tabindex="0" style="transform:translate(${this.options.x}px, ${this.options.y}px)">
                 <nav class="Window-Titlebar" id="Window-Titlebar-${this.id}">
                     <span class="Window-Title" id="Window-Title-${this.id}">${this.options.title ? this.options.title : "Title"}</span>
                     <div class="Window-Button-Wrapper">
@@ -54,7 +56,7 @@ const Win = function(options) {
                         border-radius: 10px;
                         overflow: hidden;
                         ${transition};
-                        transform: translate(${position.x}px, ${position.y}px);
+                        
                         min-width: 400px;
                         min-height: 400px;
                         box-sizing: border-box;
@@ -243,7 +245,7 @@ const Win = function(options) {
         },
 
         dragWindow : () => {
-
+            const position = { x: this.options.x, y: this.options.y }
                 interact(`#Window-Titlebar-${this.id}`).draggable({
                 inertia: {
                     resistance: 10,
@@ -253,8 +255,7 @@ const Win = function(options) {
                 listeners: {
                     start(event) {
                         event.target.parentElement.style.transition = "none";
-                        // this.windowPos.x = event.x0
-                        // this.windowPos.y = event.y0
+                        console.log(position);
                         },
                     move (event) {
                         position.x += event.dx
