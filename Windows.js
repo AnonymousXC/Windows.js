@@ -13,7 +13,7 @@ const Win = function(options) {
 
         newWindow : async () => {
             let windowHtml = `
-            <div class="Window-Main" id="Window-Main-${this.id}" data-is-maximized="0" tabindex="0" style="transform:translate(${this.options.x}px, ${this.options.y}px)">
+            <div class="Window-Main" id="Window-Main-${this.id}" data-is-maximized="0" tabindex="0" style="transform:translate(${this.options.x}px, ${this.options.y}px)" data-last-transform="">
                 <nav class="Window-Titlebar" id="Window-Titlebar-${this.id}">
                     <span class="Window-Title" id="Window-Title-${this.id}">${this.options.title ? this.options.title : "Title"}</span>
                     <div class="Window-Button-Wrapper">
@@ -191,6 +191,7 @@ const Win = function(options) {
                 let isMax = parseInt(mainDiv.getAttribute("data-is-maximized"));
                 let state = "0";
                 if(isMax === 0) {
+                    mainDiv.setAttribute("data-last-transform", mainDiv.style.transform)
                     this.windowPos.x = mainDiv.style.left;
                     this.windowPos.y = mainDiv.style.top;
                     this.windowPos.width = mainDiv.style.width;
@@ -203,7 +204,7 @@ const Win = function(options) {
                     isMaxWin = true;
                 }
                 else {
-                    mainDiv.style.transform = `translate(${this.windowPos.x}px, ${this.windowPos.y}px)`
+                    mainDiv.style.transform = mainDiv.getAttribute("data-last-transform")
                     mainDiv.style.width = this.windowPos.width;
                     mainDiv.style.height = this.windowPos.height;
                     maxBtn.innerHTML = "&#128470;&#xFE0E;"
