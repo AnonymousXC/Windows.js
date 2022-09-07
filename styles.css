@@ -10,3 +10,14 @@ body {
     overflow-y: auto;
     overflow-x: hidden !important;
 }
+
+.wrapper-div > button {
+    cursor: pointer;
+    transition: all 200ms;
+    border: solid 1px white;
+}
+
+.wrapper-div > button:hover {
+    background-color: transparent !important;
+    color: white !important;
+}
