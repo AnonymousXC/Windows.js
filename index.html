@@ -26,34 +26,99 @@
                 <img src="http://ForTheBadge.com/images/badges/built-with-love.svg" alt="ForTheBadge built-with-love">
                 <img src="http://ForTheBadge.com/images/badges/built-with-swag.svg" alt="ForTheBadge built-with-swag"> <br> <br>
         </div>
-        <button
-        ondblclick="win2.show()">
-            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/source/945b0225337909.563440870421b.png" alt="icon" width="60" >
+        <button onclick="Portfolio.show()" class="uk-button uk-button-secondary uk-light">
+            Portfolio
         </button>
     </div>
 </body>
-<script src="InWindows.js"></script>
+<script src="Windows.js"></script>
 <script>
-    let win = new Win({
+    let EmojiJS = new Win({
         x: 200,
         y: 0,
-        width: "800px",
-        height: "200px",
-        content: `<div style="height: 800px; width: 400px; background-color:yellow;">
-                    <p>Here's a very interesting note displayed in a lovely shadowed box.</p>
-                </div>`,
-        title: "Hello World"
+        width: "600px",
+        height: "400px",
+        content: `<iframe src="https://anonymousxc.github.io/emoji.js/" frameborder="0" width="100%" height="98%"></iframe>`,
+        title: "Emoji.js",
+        resizable: true,
+        draggable : true,
     });
-    let win2 = new Win({
+    let Portfolio = new Win({
         x: 0,
         y: 0,
         id: "XYZ",
         width: "600px",
         height: "400px",
         title: "Developer's Portfolio",
+        draggable: true,
+        maximized: false,
         content: `<iframe src="https://anonymousxc.github.io/ItsMeOnly/" frameborder="0" width="100%" height="98%"></iframe>`
     });
-    win.addShow();
-    win2.add();
+    let MarkdownJS = new Win({
+        x: 0,
+        y: 0,
+        width: "600px",
+        height: "400px",
+        title: "MarkdownJS",
+        draggable: true,
+        maximized: false,
+        content: `<iframe src="https://anonymousxc.github.io/Markdown.js/" frameborder="0" width="100%" height="98%"></iframe>`
+    });
+    let ContextMenuJS = new Win({
+        x: 0,
+        y: 0,
+        width: "600px",
+        height: "400px",
+        title: "Context Menu.js",
+        draggable: true,
+        maximized: false,
+        content: `<iframe src="https://anonymousxc.github.io/ContextMenu.js/" frameborder="0" width="100%" height="98%"></iframe>`
+    });
+    let QuickShare = new Win({
+        x: 0,
+        y: 0,
+        width: "600px",
+        height: "400px",
+        title: "Quick Share",
+        draggable: true,
+        maximized: false,
+        content: `<iframe src="http://quick-share-fawn.vercel.app/" frameborder="0" width="100%" height="98%"></iframe>`
+    });
+    let DChatAPP = new Win({
+        x: 100,
+        y: 100,
+        width: "600px",
+        height: "400px",
+        title: "Decentralized Chat App",
+        draggable: true,
+        maximized: false,
+        content: `<iframe src="http://decentralizedchat.vercel.app/" frameborder="0" width="100%" height="98%"></iframe>`
+    });
+    let ToDoListGodot = new Win({
+        x: 0,
+        y: 0,
+        width: "600px",
+        height: "400px",
+        title: "To Do List for Godot",
+        draggable: true,
+        content: `<iframe src="https://itch.io/embed/1364768?border_width=3&amp;dark=true" width="100%" height="100%" frameborder="0"><a href="https://anonymousxcv.itch.io/to-do-list-for-godot">To Do List For Godot by Anonymous</a></iframe>`
+    });
+    let URLShortener = new Win({
+        x: 0,
+        y: 0,
+        width: "600px",
+        height: "400px",
+        title: "URL Shortener",
+        draggable: true,
+        content: `<iframe src="https://itch.io/embed/1265573?linkback=true&amp;border_width=5&amp;dark=true" width="100%" height="100%" frameborder="0"><a href="https://anonymousxcv.itch.io/url-shortener">URL Shortener by Anonymous</a></iframe>`
+    });
+    EmojiJS.add();
+    Portfolio.add();
+    MarkdownJS.add();
+    ContextMenuJS.add();
+    QuickShare.add();
+    DChatAPP.add();
+    ToDoListGodot.add();
+    URLShortener.add();
 </script>
 </html>
