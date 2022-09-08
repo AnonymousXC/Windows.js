@@ -325,6 +325,16 @@ const Win = function(options) {
     this.add = functions.newWindow;
     this.show = functions.show;
     this.unminimize = functions.unminimize;
-    this.getID = "Window-Main-" + this.id
+    this.getIDs = () => {
+        return [
+            "Window-Main-" + this.id,
+            "Window-Titlebar-" + this.id,
+            "Window-Title-"  + this.id,
+            "Window-Min-" + this.id,
+            "Window-Max-" + this.id,
+            "Window-Close-" + this.id,
+            "Window-Body-" + this.id,
+        ]
+    }
     this.addShow = () => {functions.newWindow(); functions.show();}
 }

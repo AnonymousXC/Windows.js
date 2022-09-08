@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background-color: #222222;">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,6 +25,10 @@
                 Thanks!<br> <br>
                 <img src="http://ForTheBadge.com/images/badges/built-with-love.svg" alt="ForTheBadge built-with-love">
                 <img src="http://ForTheBadge.com/images/badges/built-with-swag.svg" alt="ForTheBadge built-with-swag"> <br> <br>
+                <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/AnonymousXC/Windows.js?&style=for-the-badge">
+                <img alt="Lines of code" src="https://img.shields.io/tokei/lines/github/AnonymousXC/Windows.js?style=for-the-badge">
+                <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/AnonymousXC/Windows.js?style=for-the-badge">
+                <img alt="GitHub" src="https://img.shields.io/github/license/AnonymousXC/Windows.js?style=for-the-badge">
         </div>
         <div style="text-align: center;" class="wrapper-div">
             <button onclick="Portfolio.show()" class="uk-button uk-button-secondary uk-light">
@@ -42,18 +46,15 @@
             <button onclick="QuickShare.show()" class="uk-button uk-button-secondary uk-light">
                 Quick Share
             </button>
-            <br>
-            <div style="margin-top: 20px; text-align: center;" class="wrapper-div">
-                <button onclick="DChatAPP.show()" class="uk-button uk-button-secondary uk-light">
-                    Decentralized Chat App
-                </button>
-                <button onclick="ToDoListGodot.show()" class="uk-button uk-button-secondary uk-light">
-                    To Do List for Godot
-                </button>
-                <button onclick="URLShortener.show()" class="uk-button uk-button-secondary uk-light">
-                    URL Shortener
-                </button>
-            </div>
+            <button onclick="DChatAPP.show()" class="uk-button uk-button-secondary uk-light">
+                Decentralized Chat App
+            </button>
+            <button onclick="ToDoListGodot.show()" class="uk-button uk-button-secondary uk-light">
+                To Do List for Godot
+            </button>
+            <button onclick="URLShortener.show()" class="uk-button uk-button-secondary uk-light">
+                URL Shortener
+            </button>
         </div>
     </div>
 </body>
@@ -146,5 +147,6 @@
     DChatAPP.add();
     ToDoListGodot.add();
     URLShortener.add();
+    console.log(Portfolio.getIDs());
 </script>
 </html>
